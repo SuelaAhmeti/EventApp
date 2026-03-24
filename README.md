@@ -1,4 +1,8 @@
 ```md id="final_readme"
+## UML Diagram
+
+![UML](class-diagram.png)
+
 # Event Management System
 
 ## 📌 Description
