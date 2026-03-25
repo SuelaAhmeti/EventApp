@@ -17,21 +17,21 @@ namespace Services
 
         // CREATE EVENT
         public void CreateEvent(Event ev)
-{
-    if (string.IsNullOrWhiteSpace(ev.Title))
-    {
-        Console.WriteLine("Title cannot be empty!");
-        return;
-    }
+       {
+            if (string.IsNullOrWhiteSpace(ev.Title))
+            {
+             Console.WriteLine("Title cannot be empty!");
+             return;
+            }
 
-    if (ev.Price <= 0)
-    {
-        Console.WriteLine("Price must be greater than 0!");
-        return;
-    }
+            if (ev.Price <= 0)
+            {
+             Console.WriteLine("Price must be greater than 0!");
+             return;
+            }
 
-    _repo.Add(ev);
-}
+            _repo.Add(ev);
+       }
 
         // GET ALL EVENTS
         public List<Event> GetAll()

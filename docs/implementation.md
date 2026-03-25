@@ -2,23 +2,25 @@
 
 ## Features Implemented
 
-- Event creation (Create)
-- Event listing (Read)
-- Get event by ID
-- CSV file storage
+- Create Event (stored in CSV)
+- View Events (read from CSV)
+- Find Event by ID
+- Basic validation (title not empty, price > 0)
 
 ## Flow
 
 UI → Service → Repository → CSV file
 
-## Example Output
+## Example Usage
 
 User can:
-- Register/Login
-- Create event
-- View events
+1. Register/Login
+2. Create an event
+3. View all events
+4. Find event by ID
 
 ## Notes
 
-- Repository reads/writes from CSV file
+- Data is stored in events.csv
+- Repository reads and writes from csv file
 - Service validates input before saving

@@ -103,6 +103,7 @@ namespace UI
                 Console.WriteLine("1. View Events");
                 Console.WriteLine("2. Create Event");
                 Console.WriteLine("3. Logout");
+                Console.WriteLine("4. Find Event by ID");
 
                 Console.Write("Zgjedh: ");
                 string choice = Console.ReadLine()!;
@@ -119,8 +120,13 @@ namespace UI
 
                     case "3":
                         return;
+
+                    case "4":
+                       FindEventById();
+                       break;
                 }
             }
+
         }
 
         void ViewEvents()
@@ -158,6 +164,21 @@ namespace UI
             });
 
             Console.WriteLine("Event created!");
+        }
+        void FindEventById()
+{
+            Console.Write("Enter ID: ");
+            int id = int.Parse(Console.ReadLine()!);
+
+            var ev = eventService.GetById(id);
+
+            if (ev == null)
+             {
+               Console.WriteLine("Event not found.");
+               return;
+             }
+
+            Console.WriteLine($"{ev.Id} | {ev.Title} | {ev.Date} | {ev.Price}");
         }
     }
 }
