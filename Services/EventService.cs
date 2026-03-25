@@ -1,20 +1,67 @@
+using Data;
+using Models;
 using System.Collections.Generic;
 using System.Linq;
-using Models;
-using Data;
+ 
 
 namespace Services
 {
     public class EventService
     {
-        public void CreateEvent(Event ev)
+        private IRepository<Event> _repo;
+
+        public EventService(IRepository<Event> repo)
         {
-            AppDb.Events.Add(ev);
+            _repo = repo;
         }
 
+        // CREATE EVENT
+        public void CreateEvent(Event ev)
+{
+    if (string.IsNullOrWhiteSpace(ev.Title))
+    {
+        Console.WriteLine("Title cannot be empty!");
+        return;
+    }
+
+    if (ev.Price <= 0)
+    {
+        Console.WriteLine("Price must be greater than 0!");
+        return;
+    }
+
+    _repo.Add(ev);
+}
+
+        // GET ALL EVENTS
+        public List<Event> GetAll()
+        {
+            return _repo.GetAll();
+        }
+
+        // FILTER BY CATEGORY
         public List<Event> GetByCategory(int categoryId)
         {
-            return AppDb.Events.Where(e => e.CategoryId == categoryId).ToList();
+            return _repo.GetAll()
+                        .Where(e => e.CategoryId == categoryId)
+                        .ToList();
         }
+    
+        public Event GetById(int id)
+         {
+            return _repo.GetById(id);
+         }
+        
+        public void DeleteEvent(int id)
+         {
+           ((FileRepository)_repo).Delete(id);
+         }
+
+        public void UpdateEvent(Event ev)
+         {
+           ((FileRepository)_repo).Update(ev);
+         }
     }
+
 }
+

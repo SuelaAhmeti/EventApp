@@ -1,13 +1,22 @@
 using System;
 using Services;
 using Models;
+using Data;
 
 namespace UI
 {
     public class App
     {
-        UserService userService = new UserService();
-        EventService eventService = new EventService();
+        private readonly UserService userService;
+        private readonly IRepository<Event> eventRepo;
+        private readonly EventService eventService;
+
+        public App()
+        {
+            userService = new UserService();
+            eventRepo = new FileRepository();
+            eventService = new EventService(eventRepo);
+        }
 
         public void Run()
         {
@@ -74,10 +83,10 @@ namespace UI
             var user = userService.Login(email, password);
 
             if (user != null)
-{
-    Console.WriteLine("Login success!");
-    EventMenu(); // 🔴 KJO DUHET ME EKZISTU PATJETËR
-}
+            {
+                Console.WriteLine("Login success!");
+                EventMenu();
+            }
             else
             {
                 Console.WriteLine("Login failed!");
@@ -87,6 +96,7 @@ namespace UI
         void EventMenu()
         {
             Console.WriteLine(">>> ENTERED EVENT MENU <<<");
+
             while (true)
             {
                 Console.WriteLine("\n=== EVENTS MENU ===");
@@ -117,10 +127,12 @@ namespace UI
         {
             var events = eventService.GetByCategory(1);
 
-            if (events.Count == 0)
-        {
-           Console.WriteLine("No events found.");
-        }
+            if (events == null || events.Count == 0)
+            {
+                Console.WriteLine("No events found.");
+                return;
+            }
+
             foreach (var ev in events)
             {
                 Console.WriteLine($"{ev.Id} | {ev.Title} | {ev.Date} | {ev.Price}");
