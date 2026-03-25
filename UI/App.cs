@@ -104,6 +104,8 @@ namespace UI
                 Console.WriteLine("2. Create Event");
                 Console.WriteLine("3. Logout");
                 Console.WriteLine("4. Find Event by ID");
+                Console.WriteLine("5. Delete Event");
+                Console.WriteLine("6. Update Event");
 
                 Console.Write("Zgjedh: ");
                 string choice = Console.ReadLine()!;
@@ -122,8 +124,16 @@ namespace UI
                         return;
 
                     case "4":
-                       FindEventById();
-                       break;
+                        FindEventById();
+                        break;
+
+                    case "5":
+                        DeleteEvent();
+                        break;
+
+                    case "6":
+                        UpdateEvent();
+                        break;
                 }
             }
 
@@ -166,7 +176,7 @@ namespace UI
             Console.WriteLine("Event created!");
         }
         void FindEventById()
-{
+        {
             Console.Write("Enter ID: ");
             int id = int.Parse(Console.ReadLine()!);
 
@@ -180,5 +190,39 @@ namespace UI
 
             Console.WriteLine($"{ev.Id} | {ev.Title} | {ev.Date} | {ev.Price}");
         }
+
+          void DeleteEvent()
+        {
+             Console.Write("Enter Event ID to delete: ");
+             int id = int.Parse(Console.ReadLine()!);
+
+             eventService.DeleteEvent(id);
+
+            Console.WriteLine("Event deleted!");
+        }
+
+           void UpdateEvent()
+        {
+             Console.Write("Enter Event ID to update: ");
+             int id = int.Parse(Console.ReadLine()!);
+
+             Console.Write("New Title: ");
+             string title = Console.ReadLine()!;
+
+             Console.Write("New Price: ");
+             double price = double.Parse(Console.ReadLine()!);
+
+             eventService.UpdateEvent(new Event
+                {
+                  Id = id,
+                  Title = title,
+                  Price = price,
+                  Date = DateTime.Now,
+                  CategoryId = 1,
+                  OrganizerId = 1
+                });
+
+             Console.WriteLine("Event updated!");
+        }  
     }
 }
