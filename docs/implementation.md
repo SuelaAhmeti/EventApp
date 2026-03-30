@@ -128,6 +128,15 @@ Nëse nuk plotësohen kushtet:
 ![App Screenshot](screenshot1.png)
 ---
 
+## 🔁 CRUD Mapping
+
+- Create → Add() në Repository
+- Read → GetAll(), GetById()
+- Update → Update()
+- Delete → Delete()
+
+---
+
 ## 📝 Notes
 
 - Repository përdor file CSV për thjeshtësi
